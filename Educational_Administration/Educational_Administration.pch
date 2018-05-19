@@ -1,0 +1,214 @@
+//
+//  YunDiPiano_Teacher.pch
+//  YunDiPiano_Teacher
+//
+//  Created by Chen on 16/12/14.
+//  Copyright © 2016年 Chen. All rights reserved.
+//
+
+
+#ifndef FengYunDi_Student_Prefix_pch
+#define FengYunDi_Student_Prefix_pch
+
+#define cooperatePhoneKey   @"cooperatePhone"
+#define waiterPhoneKey   @"waiterPhone"
+
+
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#define debugMethod() NSLog(@"%s", __func__)
+#else
+#define NSLog(...)
+#define debugMethod()
+#endif
+
+
+
+#ifdef __OBJC__
+//#import "RegExCategories.h"
+#endif
+
+//引用
+#ifndef    weakify
+#if __has_feature(objc_arc)
+
+#define weakify( x ) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x; \
+_Pragma("clang diagnostic pop")
+
+#else
+
+#define weakify( x ) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+autoreleasepool{} __block __typeof__(x) __block_##x##__ = x; \
+_Pragma("clang diagnostic pop")
+
+#endif
+#endif
+
+#ifndef    strongify
+#if __has_feature(objc_arc)
+
+#define strongify( x ) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+try{} @finally{} __typeof__(x) x = __weak_##x##__; \
+_Pragma("clang diagnostic pop")
+
+#else
+
+#define strongify( x ) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+try{} @finally{} __typeof__(x) x = __block_##x##__; \
+_Pragma("clang diagnostic pop")
+
+#endif
+#endif
+
+
+
+
+#define RGB16(rgbValue)\
+\
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 \
+alpha:1.0]
+
+#define RGB16(rgbValue)\
+\
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 \
+alpha:1.0]
+#define kGrayColor  RGBCOLOR(196, 197, 198)
+#define kGreenColor RGBCOLOR(0, 201, 144)
+#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define KEYWINDOW [UIApplication sharedApplication].keyWindow
+
+
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+
+
+
+//提示
+#define TipAlertVeiw(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
+
+
+//设备型号
+#define IS_IPAD     [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
+#define IS_IPHONE   [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone
+#define IS_IPHONE_4 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double )480) < DBL_EPSILON )
+#define IS_IPHONE_5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define IS_IPHONE_6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+#define IS_IPHONE_6_PLUS ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
+//系统版本
+#define IS_IOS_VERSION   floorf([[UIDevice currentDevice].systemVersion floatValue]
+#define IS_IOS_5    floorf([[UIDevice currentDevice].systemVersion floatValue]) ==5.0 ? 1 : 0
+#define IS_IOS_6    floorf([[UIDevice currentDevice].systemVersion floatValue]) ==6.0 ? 1 : 0
+#define IS_IOS_7    floorf([[UIDevice currentDevice].systemVersion floatValue]) ==7.0 ? 1 : 0
+#define IS_IOS_8    floorf([[UIDevice currentDevice].systemVersion floatValue]) ==8.0 ? 1 : 0
+#define IS_IOS_9    floorf([[UIDevice currentDevice].systemVersion floatValue]) ==9.0 ? 1 : 0
+
+
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+
+#define PaddingLeftWidth 12
+
+#define ScaleFrom_iPhone5_Desgin(_X_) (_X_ * (SCREEN_WIDTH/320))
+
+//字号
+#define normalContentFont [UIFont systemFontOfSize:15]
+//字颜色
+#define normalContentColor [UIColor myColorWithHexString:@"#555555"]
+#define normal_3_ContentColor [UIColor myColorWithHexString:@"#333333"]
+#define normal_8_ContentColor [UIColor myColorWithHexString:@"#888888"]
+
+//红色
+#define RedColor [UIColor myColorWithHexString:@"#d92f2e"]
+#define BgGrayColor [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0]
+
+#define GrayBtnColor [UIColor myColorWithHexString:@"#a9a9a9"]
+
+
+
+//框架
+
+#import "Masonry.h"
+#import "UIColor+expanded.h"
+#import "UIImage+Image.h"
+#import "UIView+Common.h"
+#import "BlocksKit.h"
+#import "BlocksKit+UIKit.h"
+#import "UIImageView+WebCache.h"
+//#import "LocalDefine.h"
+//#import "CustomerSystem.pch"
+#import "BaseViewController.h"
+#import "BlocksKit.h"
+#import "BlocksKit+UIKit.h"
+#import "API.h"
+#import "MJExtension.h"
+#import "MBProgressHUD+Add.h"
+#import "NSString+Judgement.h"
+//#import "CustomNavVeiw.h"
+#import "UIButton+Common.h"
+#import "CustomerManager.h"
+#import "AppDelegate.h"
+//#import "TTTAttributedLabel.h"
+//#import "UserCenter.h"
+//#import "BaseSecondModel.h"
+#import "UIImage+XH.h"
+
+#import "AppDelegate.h"
+
+#endif /* FengYunDi_Student_Prefix_pch */
+
+
+//-----------------  消息中心
+
+#define JumpToClass  @"ToClass"
+
+#define JumpToGroupClass  @"ToGroupClass"
+#define JumpToOneClass  @"ToOneClass"
+
+#define loginOrOutClassListRefresh @"loginOrOutClassListRefresh"
+
+////定位 默认位置
+//#define defaultCityName @"北京市"
+//#define defaultCityCode @"110100"
+//
+////支付结果通知 name
+//#define ALIPaySuccess @"ALIPaySuccess"
+//#define ALIPayFailed @"ALIPayFailed"
+
+///=============================================
+/// @name Weak Object
+///=============================================
+#pragma mark - Weak Object
+
+
+
+#define ESWeak(var, weakVar) __weak __typeof(&*var) weakVar = var
+#define ESStrong_DoNotCheckNil(weakVar, _var) __typeof(&*weakVar) _var = weakVar
+#define ESStrong(weakVar, _var) ESStrong_DoNotCheckNil(weakVar, _var); if (!_var) return;
+
+#define ESWeak_(var) ESWeak(var, weak_##var);
+#define ESStrong_(var) ESStrong(weak_##var, _##var);
+
+/** defines a weak `self` named `__weakSelf` */
+#define ESWeakSelf      ESWeak(self, __weakSelf);
+/** defines a strong `self` named `_self` from `__weakSelf` */
+#define ESStrongSelf    ESStrong(__weakSelf, _self);
+
